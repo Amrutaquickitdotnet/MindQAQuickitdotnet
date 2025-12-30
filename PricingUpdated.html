@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindQA Pricing</title>
+
+<style>
+body {
+  font-family: Inter, Arial, sans-serif;
+  background: #f5f7fb;
+  padding: 40px;
+  color: #1f2937;
+}
+
+.container { max-width:1100px; margin:auto; }
+
+h1 { text-align:center; }
+.subtitle { text-align:center; color:#6b7280; margin-bottom:30px; }
+
+.toggle-bar {
+  display:flex; justify-content:center; gap:8px; margin-bottom:20px;
+}
+.toggle {
+  padding:10px 18px; border-radius:20px; border:1px solid #d1d5db;
+  background:white; cursor:pointer;
+}
+.toggle.active {
+  background:#16a34a; color:white; border-color:#16a34a;
+}
+
+.cards {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;
+}
+
+.card {
+  background:white; border-radius:14px; padding:25px;
+  box-shadow:0 12px 25px rgba(0,0,0,0.06);
+  position:relative;
+}
+
+.card.popular {
+  border:2px solid #16a34a;
+  transform:scale(1.02);
+}
+
+.badge {
+  position:absolute; top:-12px; left:20px;
+  background:#16a34a; color:white;
+  padding:4px 12px; border-radius:20px; font-size:12px;
+}
+
+.price { font-size:32px; font-weight:bold; margin:15px 0; }
+.price span { font-size:14px; color:#6b7280; }
+
+ul { padding-left:18px; }
+li { margin-bottom:8px; }
+
+button {
+  width:100%; padding:12px; margin-top:15px;
+  border-radius:8px; border:none; cursor:pointer;
+}
+.primary { background:#16a34a; color:white; }
+.secondary { background:#e5e7eb; }
+
+.hidden { display:none; }
+
+.license-select {
+  width:100%; padding:6px; margin:10px 0;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h1>💰 MindQA Pricing</h1>
+<p class="subtitle">Simple. Transparent. Scalable.</p>
+
+<p class="subtitle">Pricing designed to grow with your team—from small QA setups to enterprise-scale automation.</p>
+
+<div class="toggle-bar">
+  <button class="toggle active" data-type="individual">Individual</button>
+  <button class="toggle" data-type="team">Teams</button>
+</div>
+
+<div class="toggle-bar">
+  <button class="toggle active" data-cycle="monthly">Monthly</button>
+  <button class="toggle" data-cycle="quarter">Quarter</button>
+  <button class="toggle" data-cycle="half">Half-Year</button>
+  <button class="toggle" data-cycle="yearly">Yearly</button>
+</div>
+
+<div class="cards">
+
+<!-- Individual -->
+<div class="card" id="indEarly">
+  <div class="badge">Basic</div>
+  <h3>Early Adopter</h3>
+  <p class="price" id="indEarlyPrice"></p>
+  <ul>
+    <li>Record & Playback (Scriptless)</li>
+    <li>Load Test Suite</li>
+    <li>Save & Reuse Test Suites</li>
+    <li>Screen Capture on Execution</li>
+    <li>XPath Validation</li>
+    <li>Basic UI Validations</li>
+    <li>Local Test Execution</li>
+    <li>Execution Logs</li>
+    <li>Email Support (Standard)</li>
+  </ul>
+  <button class="secondary">Choose</button>
+</div>
+
+<div class="card popular" id="indPro">
+  <div class="badge">Most Popular</div>
+  <h3>Professional (Solo)</h3>
+  <p class="price" id="indProPrice"></p>
+  <ul>
+    <li>Everything in Early Adopter</li>
+    <li>Scheduled Test Executions</li>
+    <li>Night Batch File Running Process</li>
+    <li>JSON & Excel Test Data Provider</li>
+    <li>Smart Validation Test Cases</li>
+    <li>Advanced Assertions</li>
+    <li>API Chaining & Validations</li>
+    <li>CI/CD Integration (Git, Jenkins, Azure DevOps)</li>
+    <li>Version Control for Test Suites</li>
+    <li>Reusable Test Components</li>
+    <li>Loop Concept</li>
+    <li>Priority Email Support</li>
+    <li>Filtering and searching Test Cases option</li>
+  </ul>
+  <button class="secondary">Choose</button>
+</div>
+
+<div class="card" id="indEnt">
+  <div class="badge">Enterprise</div>
+  <h3>Enterprise (Solo)</h3>
+  <p class="price" id="indEntPrice"></p>
+  <ul>
+    <li>Everything in Professional</li>
+    <li>AI Test Step Generation</li>
+    <li>AI-Assisted Test Optimization</li>
+    <li>Advanced Analytics Dashboard</li>
+    <li>Execution Trends & Failure Insights</li>
+    <li>Extent Reports</li>
+    <li>Custom Integrations (Jira, ALM)</li>
+    <li>Security & Compliance Features</li>
+    <li>24/7 Priority Support</li>
+    <li>Automation Consulting & Strategy</li>
+  </ul>
+  <button class="primary">Contact Sales</button>
+</div>
+
+<!-- Team Starter -->
+<div class="card hidden" id="teamStarter">
+  <div class="badge">Starter</div>
+  <h3>Team Starter</h3>
+  <select class="license-select" onchange="updateTeamPrice('starter',this.value)">
+    <option value="3">Up to 3 users</option>
+    <option value="5">4 + 1 Free</option>
+    <option value="custom">10+ users</option>
+  </select>
+  <p class="price" id="starterPrice"></p>
+  <ul>
+    <li>Everything in Early Adopter (Individual)</li>
+    <li>Shared Team Workspace</li>
+    <li>Multi-user Collaboration</li>
+    <li>Centralized Test Repository</li>
+    <li>Role-based Access (Admin / Tester)</li>
+    <li>Shared Test Suites</li>
+    <li>Screen Capture for Team Executions</li>
+    <li>XPath Validation</li>
+    <li>API Testing (Shared)</li>
+    <li>Team-level Execution Logs</li>
+    <li>Local & Shared Cloud Execution</li>
+    <li>Dedicated Onboarding Session</li>
+    <li>Standard SLA Support</li>
+  </ul>
+  <button class="primary">Contact Sales</button>
+</div>
+
+<!-- Team Professional -->
+<div class="card hidden popular" id="teamPro">
+  <div class="badge">Most Popular</div>
+  <h3>Team Professional</h3>
+  <select class="license-select" onchange="updateTeamPrice('professional',this.value)">
+    <option value="3">Up to 3 users</option>
+    <option value="5">4 + 1 Free</option>
+    <option value="custom">10+ users</option>
+  </select>
+  <p class="price" id="proTeamPrice"></p>
+   <ul>
+    <li>Everything in Professional</li>
+    <li>AI Test Step Generation</li>
+    <li>AI-Assisted Test Optimization</li>
+    <li>Advanced Analytics Dashboard</li>
+    <li>Execution Trends & Failure Insights</li>
+    <li>Extent Reports</li>
+    <li>Custom Integrations (Jira, ALM)</li>
+    <li>Security & Compliance Features</li>
+    <li>24/7 Priority Support</li>
+    <li>Automation Consulting & Strategy</li>
+  </ul>
+  <button class="primary">Contact Sales</button>
+</div>
+
+<!-- Team Enterprise -->
+<div class="card hidden" id="teamEnt">
+  <div class="badge">Enterprise</div>
+  <h3>Team Enterprise</h3>
+  <select class="license-select" onchange="updateTeamPrice('enterprise',this.value)">
+    <option value="3">Up to 3 users</option>
+    <option value="5">4 + 1 Free</option>
+    <option value="custom">10+ users</option>
+  </select>
+  <p class="price" id="entTeamPrice"></p>
+  <ul>
+    <li>Everything in Professional</li>
+    <li>AI Test Step Generation</li>
+    <li>AI-Assisted Test Optimization</li>
+    <li>Advanced Analytics Dashboard</li>
+    <li>Execution Trends & Failure Insights</li>
+    <li>Extent Reports</li>
+    <li>Custom Integrations (Jira, ALM)</li>
+    <li>Security & Compliance Features</li>
+    <li>24/7 Priority Support</li>
+    <li>Automation Consulting & Strategy</li>
+  </ul>
+  <button class="primary">Contact Sales</button>
+</div>
+
+</div>
+</div>
+<script>
+let planType = "individual";
+let cycle = "monthly";
+
+const individualPricing = {
+  early:{monthly:1500, quarter:4200, half:7800, yearly:10000},
+  pro:{monthly:4500, quarter:12500, half:24000, yearly:40000},
+  ent:{monthly:10000, quarter:28000, half:54000, yearly:100000}
+};
+
+const teamPricing = {
+  starter:{
+    3:{monthly:4500, quarter:13000, half:25000, yearly:55000},
+    5:{monthly:7500, quarter:22000, half:40000, yearly:75000}
+  },
+  professional:{
+    3:{monthly:8500, quarter:24000, half:47000, yearly:100000},
+    5:{monthly:14000, quarter:40000, half:75000, yearly:150000}
+  },
+  enterprise:{
+    3:{monthly:15000, quarter:42000, half:85000, yearly:180000},
+    5:{monthly:25000, quarter:70000, half:135000, yearly:270000}
+  }
+};
+
+document.querySelectorAll(".toggle").forEach(btn=>{
+  btn.onclick = ()=>{
+    btn.parentElement.querySelectorAll(".toggle").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    if(btn.dataset.type) planType = btn.dataset.type;
+    if(btn.dataset.cycle) cycle = btn.dataset.cycle;
+    updateUI();
+  };
+});
+
+function updateUI(){
+  ["indEarly","indPro","indEnt"].forEach(id =>
+    document.getElementById(id).classList.toggle("hidden", planType==="team")
+  );
+
+  ["teamStarter","teamPro","teamEnt"].forEach(id =>
+    document.getElementById(id).classList.toggle("hidden", planType==="individual")
+  );
+
+  indEarlyPrice.innerHTML = `$${individualPricing.early[cycle]} <span>/${cycle}</span>`;
+  indProPrice.innerHTML   = `$${individualPricing.pro[cycle]} <span>/${cycle}</span>`;
+  indEntPrice.innerHTML   = `$${individualPricing.ent[cycle]} <span>/${cycle}</span>`;
+
+  if(planType==="team") recalculateAllTeamPrices();
+}
+
+function updateTeamPrice(plan, users){
+  const map={starter:"starterPrice",professional:"proTeamPrice",enterprise:"entTeamPrice"};
+  if(users==="custom"){
+    document.getElementById(map[plan]).innerHTML="Contact Sales";
+    return;
+  }
+  document.getElementById(map[plan]).innerHTML =
+    `$${teamPricing[plan][users][cycle]} <span>/${cycle}</span>`;
+}
+
+function recalculateAllTeamPrices(){
+  updateTeamPrice("starter", document.querySelector("#teamStarter select").value);
+  updateTeamPrice("professional", document.querySelector("#teamPro select").value);
+  updateTeamPrice("enterprise", document.querySelector("#teamEnt select").value);
+}
+
+updateUI();
+</script>
+
+</body>
+</html>
