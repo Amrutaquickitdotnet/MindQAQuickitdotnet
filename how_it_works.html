@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title class="title">How MindQA Works</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --green: #7BC043;
+  --green-dark: #4CAF50;
+  --green-soft: #EEF7E8;
+  --line: #DDEED3;
+  --text-dark: #1F2937;
+  --text-muted: #6B7280;
+}
+.title {
+
+  color: #1f2937
+}
+
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(180deg, #F6FAFF, #FFFFFF);
+  color: var(--text-dark);
+}
+
+/* ================= HEADER ================= */
+.header {
+  text-align: center;
+  padding: 70px 20px 30px;
+}
+
+.header h1 {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.header p {
+  max-width: 760px;
+  margin: auto;
+  font-size: 18px;
+  color: var(--text-muted);
+}
+
+/* ================= STEPPER ================= */
+.stepper-wrapper {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 10;
+  padding: 30px 0 20px;
+}
+
+.stepper {
+  max-width: 900px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.stepper::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 30px;
+  right: 30px;
+  height: 3px;
+  background: var(--line);
+}
+
+/* STEP DOT */
+.step {
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.step-dot {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #C7E6B5;
+  color: var(--green-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+/* ACTIVE */
+.step.active .step-dot {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+/* COMPLETED */
+.step.completed .step-dot {
+  background: #fff;
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.step.completed .step-dot::before {
+  content: "✓";
+}
+
+/* ================= SECTIONS ================= */
+.section {
+  padding: 40px 20px;
+}
+
+.card {
+  max-width: 1200px;
+  margin: auto;
+  background: #fff;
+  border-radius: 22px;
+  padding: 55px 60px;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 70px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.06);
+}
+
+/* LEFT CONTENT */
+.step-number {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.card h2 {
+  font-size: 30px;
+  margin-bottom: 14px;
+}
+
+.highlight {
+  color: var(--green-dark);
+  font-weight: 500;
+  margin-bottom: 18px;
+  line-height: 1.6;
+}
+
+.card h4 {
+  margin: 26px 0 12px;
+}
+
+.card ul {
+  padding-left: 18px;
+  margin-bottom: 28px;
+}
+
+.card ul li {
+  margin-bottom: 10px;
+}
+
+/* RESULT */
+.result {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--green-soft);
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-weight: 500;
+  color: #256029;
+}
+
+.result::before {
+  content: "✓";
+  width: 24px;
+  height: 24px;
+  background: var(--green);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+/* IMAGE */
+.illustration img {
+  width: 100%;
+  max-width: 420px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .card {
+    grid-template-columns: 1fr;
+    padding: 40px 30px;
+  }
+
+  .illustration {
+    text-align: center;
+  }
+}
+.cta-btn {
+  background-color: #ffffff;
+  color: #5f8f3e;              /* green text */
+  border: 2px solid #cfe3b4;   /* light green border */
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 17px;
+  transition: all 0.25s ease;
+  font-family: "Inter", sans-serif;
+  margin-top: 12px;
+}
+
+.cta-btn .arrow {
+  font-size: 16px;
+  transition: transform 0.25s ease;
+}
+
+.cta-btn:hover {
+  background-color: #f5faef;   /* very light green hover */
+  border-color: #a8cc7a;
+}
+
+.cta-btn:hover .arrow {
+  transform: translateX(4px);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1 class="title">How MindQA Works</h1>
+  <p>
+   Discover how to rapidly create, execute, and optimize automated tests with MindQA’s no-code, AI-enabled platform. Designed for modern QA teams, MindQA simplifies test creation, accelerates execution at scale, and continuously improves test quality—helping you deliver faster, more reliable releases with confidence.
+  </p>
+</div>
+
+<!-- STEPPER -->
+<div class="stepper-wrapper">
+  <div class="stepper">
+    <div class="step active" data-target="step1"><div class="step-dot">1</div></div>
+    <div class="step" data-target="step2"><div class="step-dot">2</div></div>
+    <div class="step" data-target="step3"><div class="step-dot">3</div></div>
+    <div class="step" data-target="step4"><div class="step-dot">4</div></div>
+    <div class="step" data-target="step5"><div class="step-dot">5</div></div>
+  </div>
+</div>
+
+<!-- STEP 1 -->
+<section class="section" id="step1">
+  <div class="card">
+    <div>
+      <div class="step-number">1</div>
+      <h2>Design & Build Automated Tests — Without Writing Code</h2>
+      <p class="highlight">
+        Create automated tests faster <b>using</b> model-driven design, reusable components,
+        and no-code / low-code authoring without relying on the complex script
+      </p>
+
+      <h4>What You Can Do with MindQA</h4>
+      <ul>
+        <li>Quickly create test scenarios with built-in test data support</li>
+        <li>Build Reusable steps (Login, Search, Checkout)and test templates</template></li>
+        <li>Shift-left test planning directly from the requirement</li>
+        <li>Auto-generate test cases from business flows</li>
+      </ul>
+
+      <div class="result">
+        Result: Build reliable automated tests <strong>3–5× faster</strong>with minimal scripting efforts
+      </div>
+        <div>
+            <button class="cta-btn">
+  See Test Design in Action <span class="arrow">→</span>
+</button>
+      </div>
+    </div>
+
+    <div class="illustration">
+      <img src="images/image.png">
+    </div>
+  </div>
+</section>
+
+<!-- STEP 2 -->
+<section class="section" id="step2">
+  <div class="card">
+    <div>
+      <div class="step-number">2</div>
+      <h2>Simulate & Validate Across Web, Mobile & APIs</h2>
+      <p class="highlight">
+        Execute functional, UI, API, regression, and end-to-end tests using a single unified engine-across environment and platform.
+      </p>
+      <h4>Execution Capabilities</h4>
+
+      <ul>
+        <li>Run tests across Web, Mobile , API's from one place</li>
+        <li>Use Data-driven and environment-based test simulation</li>
+        <li>Apply Smart assertions & validations rule automatically</li>
+        <li>Detect Flaky tests andimprove execution stability</li>
+      </ul>
+
+      <div class="result">
+        Result: More reliable test runs with broader coverage
+      </div>
+        <div>
+            <button class="cta-btn">
+ Watch Test Execution Demo <span class="arrow">→</span>
+</button>
+      </div>
+    </div>
+
+    <div class="illustration">
+      <img src="images/Validation.png">
+    </div>
+  </div>
+</section>
+<!-- STEP 3 -->
+<section class="section" id="step3">
+  <div class="card step-layout">
+
+    <!-- LEFT CONTENT -->
+    <div class="step-content">
+      <div class="step-number">3</div>
+
+      <h2>Execute at Scale</h2>
+
+      <p class="highlight">
+        Run tests across distributed nodes and cloud environments for enterprise-grade performance.
+      </p>
+
+      <h4>What happens here</h4>
+
+      <ul>
+        <li>Parallel and distributed execution</li>
+        <li>Hybrid deployment (on prem + cloud)</li>
+        <li>Auto-scaling of execution workloads</li>
+        <li>AI-assisted resource optimizations</li>
+      </ul>
+
+      <div class="result">
+        Result: Data driven release confidence with visibility across the teams.
+      </div>
+
+      <button class="cta-btn">
+        See Smart Flow Validation Flow <span class="arrow">→</span>
+      </button>
+    </div>
+
+    <!-- RIGHT IMAGE -->
+    <div class="illustration">
+      <img src="images/Team goals-rafiki.png" alt="Execute at Scale">
+    </div>
+
+  </div>
+</section>
+
+<!-- STEP 4 -->
+<section class="section" id="step4">
+  <div class="card">
+    <div>
+      <div class="step-number">4</div>
+      <h2>Analyze & Report</h2>
+      <p class="highlight">
+       Turn test results into actionable intelligence. MindQA provides powerful analytics and centralized reporting that help teams track quality trends, identify risks early, and release with confidence.
+      </p>
+<h4>Reporting features</h4>
+      <ul>
+        <li>Monitor test execution as it happens with live dashboards that display pass/fail status, execution progress, environment health, and build-wise quality indicators—all in one place.</li>
+        <li>Automatically analyze failures to surface probable root causes such as environment issues, flaky tests, data problems, or application defects—helping teams reduce triage time and fix faster.</li>
+        <li>Gain deep visibility into test coverage across features, platforms, browsers, and devices. Analyze trends over time to understand quality improvements, regressions, and risk areas.</li>
+        <li>Generate customizable, exportable reports (PDF, Excel, or JSON) tailored for QA teams, leadership, and compliance audits—ensuring transparency and traceability.</li>
+      </ul>
+
+      <div class="result">
+        Result: Data-driven release confidence with visibility across teams.
+      </div>
+        <div>
+            <button class="cta-btn">
+  See Smart Extent Reports <span class="arrow">→</span>
+</button>
+      </div>
+    </div>
+
+    <div class="illustration">
+      <img src="images/Reporting.png">
+    </div>
+  </div>
+</section>  
+<!-- STEP 5-->
+<section class="section" id="step5">
+  <div class="card">
+    <div>
+      <div class="step-number">5</div>
+      <h2>Improve & Heal with AI</h2>
+      <p class="highlight">
+        Continuously optimize automation using intelligent insights and self-healing capabilities.Continuously enhance your test automation with AI-driven intelligence that adapts to change, reduces maintenance, and improves reliability over time.
+      </p>
+<h4>Power of AI</h4>
+      <ul>
+        
+        <li>Identify flaky patterns across executions and apply smart corrections to minimize intermittent failures, ensuring consistent and trustworthy test results.</li>
+        <li>Leverage AI insights to analyze execution history, eliminate redundant tests, optimize coverage, and prioritize high-risk scenarios for faster feedback.</li>
+      <li>AI automatically discovers, generates, and optimizes end-to-end test flows based on real user behavior and application changes—maximizing coverage with minimal maintenance.</li>
+      </ul>
+
+      <div class="result">
+        Outcome: Lower maintenance cost with resilient, smarter automation that improves with every execution.
+      </div>
+      <div>
+            <button class="cta-btn">
+  See Test Design in Action <span class="arrow">→</span>
+</button>
+      </div>
+
+
+    </div>
+    
+
+    <div class="illustration">
+      <img src="images/AI.jpg">
+    </div>
+  </div>
+</section>
+
+<!-- ================= JS ================= -->
+<script>
+const steps = document.querySelectorAll(".step");
+const sections = document.querySelectorAll(".section");
+
+function activateStep(index) {
+  steps.forEach((step, i) => {
+    step.classList.remove("active", "completed");
+
+    const dot = step.querySelector(".step-dot");
+    dot.textContent = i + 1;
+
+    if (i < index) {
+      step.classList.add("completed");
+    } else if (i === index) {
+      step.classList.add("active");
+    }
+  });
+}
+
+window.addEventListener("scroll", () => {
+  let current = 0;
+  sections.forEach((section, index) => {
+    if (section.getBoundingClientRect().top <= 160) {
+      current = index;
+    }
+  });
+  activateStep(current);
+});
+
+steps.forEach((step, index) => {
+  step.addEventListener("click", () => {
+    document
+      .getElementById(step.dataset.target)
+      .scrollIntoView({ behavior: "smooth" });
+    activateStep(index);
+  });
+});
+</script>
+
+</body>
+</html>
